@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, GPL-3.0 license
+# Ultralytics YOLO ð€, GPL-3.0 license
 """
 Run prediction on images, videos, directories, globs, YouTube, webcam, streams, etc.
 Usage - sources:
@@ -186,7 +186,8 @@ class BasePredictor:
                 if self.webcam:
                     path, im0s = path[i], im0s[i]
                 p = Path(path)
-                s += self.write_results(i, preds, (p, im, im0s))
+                s1,labels = self.write_results(i, preds, (p, im, im0s))
+                s+=s1
 
                 if self.args.show:
                     self.show(p)
@@ -209,7 +210,7 @@ class BasePredictor:
             LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}{s}")
 
         self.run_callbacks("on_predict_end")
-        return self.all_outputs
+        return self.all_outputs, labels
 
     def show(self, p):
         im0 = self.annotator.result()
